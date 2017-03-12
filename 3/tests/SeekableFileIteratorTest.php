@@ -4,27 +4,27 @@ use PHPUnit\Framework\TestCase;
 
 class SeekableFileIteratorTest extends TestCase
 {
-    private $_it;
+	private $_it;
 	private $_filePath;
 	const FILE_DATA = 'abcdef';
 	const INDEX_SEQUENCE = '012345';
 	const FILE_NAME = 'test_file';
- 
-    protected function setUp()
-    {
-        $this->_filePath = __DIR__ . '/' . self::FILE_NAME;
+	
+	protected function setUp()
+	{
+		$this->_filePath = __DIR__ . '/' . self::FILE_NAME;
 		file_put_contents($this->_filePath, self::FILE_DATA);
 		$this->_it = new edwvee\SeekableFileIterator($this->_filePath);
-    }
- 
-    protected function tearDown()
-    {
-        $this->_it = NULL;
+	}
+	
+	protected function tearDown()
+	{
+		$this->_it = NULL;
 		unlink($this->_filePath);
-    }
- 
-    public function testForeach()
-    {
+	}
+	
+	public function testForeach()
+	{
 		$indexSequence = '';
 		$data = '';
 		foreach ($this->_it as $k => $v)
@@ -35,8 +35,8 @@ class SeekableFileIteratorTest extends TestCase
 		
 		$this->assertEquals(self::INDEX_SEQUENCE, $indexSequence);
 		$this->assertEquals(self::FILE_DATA, $data);
-    }
- 
+	}
+	
 	public function testRewind()
 	{
 		$it = $this->_it;
