@@ -26,7 +26,7 @@ class SeekableFileIterator implements \SeekableIterator
     {
         $this->_pos = $pos;
         fseek($this->_f, $pos);
-        $this->_afterMove();
+        $this->_readCurrent();
         if (!$this->_valid)
             throw new \OutOfBoundsException();
     }
@@ -44,7 +44,7 @@ class SeekableFileIterator implements \SeekableIterator
     public function next()
     {
         $this->_pos++;
-        $this->_afterMove();
+        $this->_readCurrent();
     }
     
     public function rewind()
@@ -57,7 +57,7 @@ class SeekableFileIterator implements \SeekableIterator
         return $this->_valid;
     }
     
-    protected function _afterMove()
+    protected function _readCurrent()
     {
         $val = fread($this->_f, 1);
         if ($val === '')//php.net говорит в случае неудачи должно быть false, но у меня пустая строка, версия php 7.0
