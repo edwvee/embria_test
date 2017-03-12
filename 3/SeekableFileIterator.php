@@ -60,7 +60,7 @@ class SeekableFileIterator implements \SeekableIterator
 	protected function _afterMove()
 	{
 		$val = fread($this->_f, 1);
-		if ($val === '')
+		if ($val === '')//php.net говорит в случае неудачи должно быть false, но у меня пустая строка, версия php 7.0
 		{
 			$this->_pos = NULL;
 			$this->_val = NULL;
