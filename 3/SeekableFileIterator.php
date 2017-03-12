@@ -7,7 +7,7 @@ class SeekableFileIterator implements \SeekableIterator
     protected $_val;
     protected $_valid;
     
-    public function __construct($fileName)
+    public function __construct(String $fileName)
     {
         $this->_f = @fopen($fileName, 'r');
         if (!$this->_f)
@@ -31,12 +31,12 @@ class SeekableFileIterator implements \SeekableIterator
             throw new \OutOfBoundsException();
     }
     
-    public function current()
+    public function current(): String
     {
         return $this->_val;
     }
     
-    public function key()
+    public function key(): int
     {
         return $this->_pos;
     }
@@ -60,7 +60,7 @@ class SeekableFileIterator implements \SeekableIterator
     protected function _readCurrent()
     {
         $val = fread($this->_f, 1);
-        if ($val === '')//php.net говорит в случае неудачи должно быть false, но у меня пустая строка, версия php 7.0
+        if ($val === '')
         {
             $this->_pos = NULL;
             $this->_val = NULL;
